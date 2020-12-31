@@ -1,0 +1,29 @@
+<!-- This file gonna to upload on cloudfront-->
+<html>
+	<head></head>
+	<body ng-app="myApp">
+		<div class="container" ng-controller="myCtrl">
+			<table>
+			 <tr>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Image</th>
+			  </tr>
+			  <tr ng-repeat="product in products">
+				<td>{{ products.name }}</td>
+				<td>{{ products.price }}</td>
+				<td><img ng-src="{{products.image}}"/></td>
+			  </tr>
+			</table>
+		</div>
+	</body>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $http) {
+		  $http.get("API_GATEWAY_URL/products")
+		  .then(function(response) {
+			$scope.products = response.data;
+		  });
+		});
+	</script>
+</html>
